@@ -1,12 +1,11 @@
-# Connect real accounts and messaging
+﻿# Connect to LearnFlow
 
-1. Create a Supabase project at https://supabase.com/dashboard.
-2. Run `supabase/schema.sql` once in the new project's SQL Editor.
-3. Copy `.env.example` to `.env.local`. Fill in your project URL and publishable key from the Connect dialog. Never use a secret or service-role key in frontend configuration.
-4. Set Authentication Site URL and redirect allowlist to `http://127.0.0.1:5173` for local development. Add your public HTTPS origin when deployed.
-5. Restart `npm run dev`.
-6. Create and confirm two real accounts, complete profiles, like each other and send messages. Verify a third account cannot access their conversation, and blocking prevents messages. These integration checks still need a connected project.
+1. Open the existing LearnFlow project in Supabase.
+2. Run supabase/schema.sql once in SQL Editor. It creates dating_ tables and functions without modifying existing tables. If any dating_ objects already exist, stop and inspect them first.
+3. Copy .env.example to .env.local. Set the LearnFlow project URL and publishable key. Never use a secret or service-role key.
+4. Keep the existing Authentication Site URL and redirects. Add http://127.0.0.1:5173 to the redirect allowlist. Later add the dating website HTTPS origin.
+5. Restart npm run dev. Create two confirmed accounts and dating profiles, like each other, and test messaging. Verify a third account cannot access the conversation and blocking prevents messaging.
 
-For hosting: run `npm run build`, deploy `dist` on a static host, and set both VITE environment variables before building. Configure production SMTP in Supabase for public signup. Reports are stored for owner review in the Supabase dashboard.
+Both websites share authentication and quotas. Inspect existing Auth triggers before enabling dating signup because those triggers may also create LearnFlow records. Compatibility and database security require live integration testing; only the frontend build has been verified.
 
-This version uses actual database-backed accounts and conversations when connected. No live backend or public deployment is configured yet. Age is self-declared. Profile photos, stronger age assurance, moderation UI, deletion workflows and anti-abuse controls remain launch work. No people appear until real users register. Chat refreshes every three seconds.
+Build with npm run build and publish dist on a static host with both VITE environment variables set. Production email delivery must be configured without disrupting LearnFlow. Reports are stored for owner review in the Supabase dashboard. Photos, verified age assurance, moderation UI and account deletion remain launch work. There are no sample profiles; members appear when they sign up.
