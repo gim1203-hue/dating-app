@@ -96,3 +96,30 @@ it does not configure your Supabase database or email sender.
 Run `npm run build:pages` to verify the production path locally. Invitations and
 auth redirect links retain the repository path. Roll back by reverting the release
 commit and allowing the workflow to deploy the previous app.
+
+## Administrator dashboard and support
+
+`supabase/admin.sql` adds database-enforced administrator roles, scoped member
+search, private support conversations, report review, and dating suspensions.
+Apply it after the other dating migrations. It grants no account admin access.
+`supabase/activate-admin.sql` is the separate owner-role activation, requiring the
+confirmed `gimrankhan1203@gmail.com` account. Apply only after owner approval.
+
+Admins see a Dashboard tab, member emails/join dates, profile information/media,
+contact details provided in the dating app, and support messages. They can request
+password-reset emails and suspend/restore dating access. Passwords remain managed
+by Supabase and cannot be viewed. Reset links let members choose their passwords.
+Private member-to-member chats are not part of the support inbox.
+
+Regular members have a Support tab and cannot read others' support conversations
+or admin records. Suspensions stop dating discovery, new likes, and mutual chat;
+support remains available. They do not disable the shared LearnFlow login.
+Members appear if they have a dating profile, dating signup metadata, or a support
+conversation; unrelated LearnFlow accounts are excluded.
+
+Log out is visible in the top bar on desktop and mobile, in addition to the
+sidebar action. Public visitors and signup screens have no active-session logout.
+
+Verification: `npm run build:pages` and `npm test` (including admin authorization,
+self-promotion prevention, support privacy, private-media moderation access and
+suspension enforcement). Admin activation is a separate security-sensitive step.
