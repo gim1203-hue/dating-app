@@ -6,7 +6,7 @@ const context=await browser.newContext();
 const errors=[];
 const page=await context.newPage();page.on('pageerror',e=>errors.push(e.message));
 const origin='http://127.0.0.1:5180';
-await page.goto(origin);await page.getByRole('heading',{name:'Welcome back.'}).waitFor();
+await page.goto(origin+'/?auth=signin');await page.getByRole('heading',{name:'Welcome back.'}).waitFor();
 await page.getByRole('button',{name:'Create account',exact:true}).click();
 await page.getByRole('heading',{name:'Find your people.'}).waitFor();
 await page.getByRole('button',{name:'Forgot password?'}).click();
